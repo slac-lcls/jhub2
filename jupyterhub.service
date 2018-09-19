@@ -4,10 +4,10 @@ After=syslog.target network.target
 
 [Service]
 User=root
-Environment="PYTHONPATH=/reg/neh/home/weninc/jhub2"
-Environment="PATH=/sbin/:/usr/bin/:/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/"
+Environment="PYTHONPATH=/u1/jupyterhub/jhub2"
+Environment="PATH=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/:/sbin/:/usr/bin/:/bin"
 ExecStart=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/jupyterhub
-WorkingDirectory=/reg/neh/home/weninc/jhub2
+WorkingDirectory=/u1/jupyterhub/jhub2
 
 [Install]
 WantedBy=multi-user.target
