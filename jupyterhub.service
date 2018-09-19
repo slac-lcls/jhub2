@@ -1,0 +1,14 @@
+[Unit]
+Description=Jupyterhub
+After=syslog.target network.target
+
+[Service]
+User=root
+Environment="PYTHONPATH=/reg/neh/home/weninc/jhub2"
+Environment="PATH=/sbin/:/usr/bin/:/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/"
+ExecStart=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/jupyterhub
+WorkingDirectory=/reg/neh/home/weninc/jhub2
+
+[Install]
+WantedBy=multi-user.target
+
