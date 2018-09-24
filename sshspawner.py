@@ -85,6 +85,12 @@ class SSHSpawner(Spawner):
             return 0
         cmd = 'ps -p {pid}; status=$?; echo status=$status'.format(pid=self.pid)
         ret, stdout, stderr = await execute('psjhub', self.hostname, cmd)
+
+        if ret:
+            self.log.info('ssh to poll server %s failed' % self.hostname)
+            self.clear_state()
+            return 0
+
         match = re.search('status=(\d+)', stdout)
         status = int(match.group(1))
         # process died
