@@ -71,7 +71,9 @@ class SSHSpawner(Spawner):
             self.log.info('Error in spawning juptyterhub-singleuser %s\n', stderr)
             if 'Permission denied' in stderr:
                 self.log.info('Problem with ssh keys\n')
-                raise web.HTTPError(511)
+                e = web.HTTPError(511)
+                e.my_message = """It's likely your ssh keys are not initialized correctly. Please follow the <a href="https://pswww.slac.stanford.edu/errors/JupyterHubCustomErrorPage.html">instructions here</a> and try again."""
+                raise e
 
         match = re.search("host=(psana\w+\d+)\npid=(\d+)", stdout)
         self.hostname = match.group(1)
