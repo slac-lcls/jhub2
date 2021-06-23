@@ -23,6 +23,8 @@ if [[ $# -ge 1 && ${1} = '-h' ]] ; then
 fi
 
 
-DB="jupyterhub.sqlite"
+workdir=$(dirname $0)
+DB="${workdir}/jupyterhub.sqlite"
+[[ -f ${DB} ]] || { echo "Missing jhub database ${DB}"; exit 2; }  
 
 active_users
