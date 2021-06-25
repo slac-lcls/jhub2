@@ -20,8 +20,8 @@ c.Authenticator.admin_users = set(['mshankar', 'wilko'])
 c.Spawner.options_form = '''
 <label for="cmd">Please choose</label>
 <select name="cmd">
-  <option value="jupyterhub-singleuser">Classic Notebook</option>
   <option value="jupyter-labhub">Jupyter Lab</option>
+  <option value="jupyterhub-singleuser">Classic Notebook</option>
 </select>
 '''
 
