@@ -12,7 +12,7 @@ from traitlets import (Integer, Unicode)
 
 async def execute(user, host, cmd):
     fmt = 'runuser -u {user} -- {ssh} {user}@{host} \" env -i bash --norc --noprofile -c \' {cmd} \' \" '
-    cmd = fmt.format(ssh='ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no',
+    cmd = fmt.format(ssh='ssh -o StrictHostKeyChecking=no -o PasswordAuthentication=no -o PreferredAuthentications=publickey',
                     user=user, host=host, cmd=cmd)
     proc = await asyncio.create_subprocess_exec(*shlex.split(cmd),
                                                 stdout=asyncio.subprocess.PIPE,
@@ -62,18 +62,23 @@ class SSHSpawner(Spawner):
         env = self.get_env()
         cmd = ['export %s=%s;' % item for item in env.items()]
         cmd += ['echo host=$(hostname);']
-        cmd.extend(self.user_options.get('cmd', ['jupyterhub-singleuser']))
+
+        remote_cmd = self.user_options.get('cmd', ['jupyter-labhub'])
+        remote_node = self.user_options.get('loc', ['psana'])[0] 
+        cmd.extend(remote_cmd)
+
         cmd += self.get_args()
         cmd += [' > ~/.jhub.log 2>&1 & pid=$!; echo pid=$pid']
         cmd = ' '.join(cmd)
-        ret, stdout, stderr = await execute(self.user.name, 'psana', cmd)
+        ret, stdout, stderr = await execute(self.user.name, remote_node, cmd)
         if ret:
             self.log.info('Error in spawning juptyterhub-singleuser %s\n', stderr)
             if 'Permission denied' in stderr:
                 self.log.info('Problem with ssh keys\n')
                 raise Exception("""It's likely your ssh keys are not initialized correctly. Please follow the instructions here - https://pswww.slac.stanford.edu/errors/JupyterHubCustomErrorPage.html and try again.""")
 
-        match = re.search("host=(psana\w+\d+)\npid=(\d+)", stdout)
+        match = re.search("host=(psana\w+\d+|drp-srcf-\w+\d+)\npid=(\d+)", stdout)
+            
         self.hostname = match.group(1)
         self.pid = int(match.group(2))
         self.log.info('hostname: %s port: %s pid: %d' % (self.hostname, self.port, self.pid))

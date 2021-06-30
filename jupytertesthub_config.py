@@ -23,6 +23,12 @@ c.Spawner.options_form = '''
   <option value="jupyter-labhub">Jupyter Lab</option>
   <option value="jupyterhub-singleuser">Classic Notebook</option>
 </select>
+
+<label for="loc">Please choose</label>
+<select name="loc">
+  <option value="psana">ana</option>
+  <option value="psffb">ffb</option>
+</select>
 '''
 
 c.JupyterHub.services = [
