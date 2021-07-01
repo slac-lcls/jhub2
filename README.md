@@ -1,8 +1,8 @@
 
-# Installation testhub 2021-07
+# Installation jupyterhub_test 2021-07
 
-* runs in systemd using *jupytertesthub.service*
-* the app-name in syslog is **testhub** (the production is *jupyterhub*)
+* runs in systemd using *jupyterhub_test.service*
+* the app-name in syslog is **hubtest** (the production is *jupyterhub*)
 
 
 ## Created hub environment
@@ -15,15 +15,19 @@ The jupyterhub environment is created in the **dm** conda installation:
 ```
 % conda create -n jhubtest  -c conda-forge jupyterhub
 % conda activate jhubtest
+% pip install pip install jhub_remote_user_authenticator
 % conda install -c conda-forge jupyterlab 
 % conda install -c conda-forge notebook
-% conda install jupyterlab\_widgets
-% pip install pip install jhub\_remote\_user\_authenticator
+% conda install jupyterlab_widgets
+% conda install -c conda-forge ipympl
+
+% conda install -c conda-forge jupyter_bokeh
 ```
 
-## Configuration 
+* Installed jupyter_bokeh and bokeh in order to get a kernel working that used bokeh.
 
-See *jupyterhub_config.py*. 
+
+## Configuration *jupyterhubtest_config.py*. 
 
 The configurations *c.JupyterHub.hub_ip* and *c.JupyterHub.hub_port* needed to be added because two 
 hubs are running on the same node and there was a port conflict. This port and IP are used by the 
