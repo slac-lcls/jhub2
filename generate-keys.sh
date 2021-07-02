@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -u 
+
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
@@ -12,9 +14,14 @@ else
 fi
 
 touch ~/.ssh/authorized_keys
+perm=$(stat -L -c %a ~/.ssh/authorized_keys)
+if [[ "${perm}" != "644" ]] ; then
+    chmod 644 ~/.ssh/authorized_keys
+fi
+
 key=$(cat ~/.ssh/id_rsa.pub)
-if grep -q  "$key" ~/.ssh/authorized_keys
-then
+
+if grep -q  "$key" ~/.ssh/authorized_keys ; then
     echo "SSH key already in authorized_keys"
 else
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -22,7 +29,7 @@ else
 fi
 
 kdestroy -q
-if ssh -o PasswordAuthentication=no psana exit; then
+if ssh -o PasswordAuthentication=no psana exit ; then
     echo -e "${GREEN}SSH keys are working now${NC}"
 else
     echo -e "${RED}Something went wrong${NC}"
