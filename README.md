@@ -27,6 +27,34 @@ The jupyterhub environment is created in the **dm** conda installation:
 * Installed jupyter_bokeh and bokeh in order to get a kernel working that used bokeh.
 
 
+## Hub instances 
+
+There are three different instances of the Jupyterhub running. Each one has uses it's own workdir and a clone of the 
+jhub2 repo (https://github.com/slac-lcls/jhub2.git). The same code is used except for the config files and systemd 
+service file. The configuration is in the jupyterhub*_config.py, in particular the port settings.
+
+### production
+
+* workdir: /u1/jupyterhub/prod/jhub2/
+* name: jupyterhub
+* config: jupyterhub_config.py
+* systemd-service: jupyterhub.service
+
+### previous (prev)
+
+* workdir: /u1/jupyterhub/prev/jhub2/
+* name: jupyterhubprev
+* config: jupyterhub_prev_config.py
+* systemd-service: jupyterhub_prev.service
+
+### test (prev)
+
+* workdir: /u1/jupyterhub/test/jhub2/
+* name: jupyterhubtest
+* config: jupyterhub_test_config.py
+* systemd-service: jupyterhub_test.service
+
+
 ## Configuration *jupyterhubtest_config.py*. 
 
 The configurations *c.JupyterHub.hub_ip* and *c.JupyterHub.hub_port* needed to be added because two 

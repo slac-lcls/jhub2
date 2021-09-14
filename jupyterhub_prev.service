@@ -1,0 +1,15 @@
+[Unit]
+Description=JupyterhubPrev
+After=syslog.target network.target
+
+[Service]
+User=root
+SyslogIdentifier=hubprev
+Environment="PYTHONPATH=/u1/jupyterhub/prev/jhub2"
+Environment="PATH=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/:/sbin/:/usr/bin/:/bin"
+ExecStart=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/jupyterhub --config jupyterhub_prev_config.py
+WorkingDirectory=/u1/jupyterhub/prev/jhub2
+
+[Install]
+WantedBy=multi-user.target
+
