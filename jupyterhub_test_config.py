@@ -4,7 +4,7 @@ c.JupyterHub.base_url = 'jupyterhubtest'
 c.JupyterHub.authenticator_class = 'jhub_remote_user_authenticator.remote_user_auth.RemoteUserAuthenticator'
 c.JupyterHub.spawner_class = 'sshspawner.SSHSpawner'
 
-c.JupyterHub.port = 9839
+c.JupyterHub.port = 8939
 c.JupyterHub.hub_ip = '0.0.0.0'
 
 c.Spawner.ip = '0.0.0.0'
@@ -16,6 +16,9 @@ c.JupyterHub.hub_port = 54321
 
 
 c.Authenticator.admin_users = set(['mshankar', 'wilko'])
+
+c.Spawner.http_timeout = 60
+c.Spawner.start_timeout = 60
 
 c.Spawner.options_form = '''
 <label for="cmd">Please choose</label>
@@ -38,3 +41,5 @@ c.JupyterHub.services = [
         'command': 'python cull_idle_servers.py --timeout=172800'.split(),
     }
 ]
+
+

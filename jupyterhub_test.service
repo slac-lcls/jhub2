@@ -6,8 +6,8 @@ After=syslog.target network.target
 User=root
 SyslogIdentifier=hubtest
 Environment="PYTHONPATH=/u1/jupyterhub/test/jhub2"
-Environment="PATH=/cds/sw/ds/dm/conda/envs/jhub-1.4.1/bin:/sbin/:/usr/bin/:/bin"
-ExecStart=/cds/sw/ds/dm/conda/envs/jhub-1.4.1/bin/jupyterhub --config jupyterhub_test_config.py
+Environment="PATH=/cds/sw/ds/dm/conda/envs/jhub-1.4.2/bin:/sbin/:/usr/bin/:/bin"
+ExecStart=/cds/sw/ds/dm/conda/envs/jhub-1.4.2/bin/jupyterhub --config jupyterhub_test_config.py
 WorkingDirectory=/u1/jupyterhub/test/jhub2
 
 [Install]
