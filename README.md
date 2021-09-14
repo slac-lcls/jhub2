@@ -7,22 +7,24 @@
 
 ## Created hub environment
 
-The jupyterhub environment is created in the **dm** conda installation:
+The jupyterhub environment is created in the **dm** conda installation, _/cds/sw/ds/dm/conda_:
 
-    > /cds/sw/ds/dm/conda
     > . /cds/sw/ds/dm/conda/etc/profile.d/conda.sh
 
+
 ```
-% conda create -n jhubtest  -c conda-forge jupyterhub
-% conda activate jhubtest
-% pip install pip install jhub_remote_user_authenticator
+% conda create -n jhub-<vers> -c conda-forge jupyterhub
+% conda activate jhub-<vers>
+% pip install jhub_remote_user_authenticator
 % conda install -c conda-forge jupyterlab 
 % conda install -c conda-forge notebook
 % conda install jupyterlab_widgets
 % conda install -c conda-forge ipympl
-
 % conda install -c conda-forge jupyter_bokeh
 ```
+
+Here the environment jhub-<vers> uses the version for the jupyterhub, e.g.: _jhub-1.4.2_ 
+
 
 * Installed jupyter_bokeh and bokeh in order to get a kernel working that used bokeh.
 
