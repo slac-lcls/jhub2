@@ -1,13 +1,14 @@
 [Unit]
-Description=Jupyterhub
+Description=JupyterhubTest
 After=syslog.target network.target
 
 [Service]
 User=root
-Environment="PYTHONPATH=/u1/jupyterhub/jhub2"
-Environment="PATH=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/:/sbin/:/usr/bin/:/bin"
-ExecStart=/reg/g/psdm/sw/jupyterhub/miniconda3/envs/jhub/bin/jupyterhub
-WorkingDirectory=/u1/jupyterhub/jhub2
+SyslogIdentifier=jupyterhub
+Environment="PYTHONPATH=/u1/jupyterhub/prod/jhub2"
+Environment="PATH=/cds/sw/ds/dm/conda/envs/jhub-1.4.2/bin:/sbin/:/usr/bin/:/bin"
+ExecStart=/cds/sw/ds/dm/conda/envs/jhub-1.4.2/bin/jupyterhub --config jupyterhub_config.py
+WorkingDirectory=/u1/jupyterhub/prod/jhub2
 
 [Install]
 WantedBy=multi-user.target
