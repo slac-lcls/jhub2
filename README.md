@@ -7,26 +7,20 @@
 
 ## Created hub environment
 
-The jupyterhub environment is created in the **dm** conda installation, _/cds/sw/ds/dm/conda_:
-
-    > . /cds/sw/ds/dm/conda/etc/profile.d/conda.sh
-
+The jupyterhub environment is created in the **dm** conda installation, _/cds/sw/ds/dm/conda_. 
+To install a new jhub environment run the following commands:
 
 ```
-% conda create -n jhub-<vers> -c conda-forge jupyterhub
+% . /cds/sw/ds/dm/conda/etc/profile.d/conda.sh
+% conda create -n jhub-<vers> -c conda-forge jupyterhub jupyterlab ipympl jupyter_bokeh
 % conda activate jhub-<vers>
-% pip install jhub_remote_user_authenticator
-% conda install -c conda-forge jupyterlab 
-% conda install -c conda-forge notebook
-% conda install jupyterlab_widgets
-% conda install -c conda-forge ipympl
-% conda install -c conda-forge jupyter_bokeh
+% pip install jhub_remote_user_authenticator 
 ```
 
-Here the environment jhub-<vers> uses the version for the jupyterhub, e.g.: _jhub-1.4.2_ 
+Before version 2 the jhub version was using the version from the jupyterhub package. However, 
+from jhub-2.0.0 we use our own version.
 
-
-* Installed jupyter_bokeh and bokeh in order to get a kernel working that used bokeh.
+*jupyter_bokeh* is needed in order to get a kernel working that used bokeh.
 
 
 ## Hub instances 
@@ -63,3 +57,18 @@ The configurations *c.JupyterHub.hub_ip* and *c.JupyterHub.hub_port* needed to b
 hubs are running on the same node and there was a port conflict. This port and IP are used by the 
 *--error-target* option to the node configurable-http-proxy service.
 
+
+## Selecting the jhub version that an instances is using
+
+Which jhub version an instance is running is configured in the systemd .service file for that instance. 
+The version has to be set in the *Environment="PATH..."* and *ExecStart* lines.
+
+
+# Changelog
+
+## jhub-2.0.0
+
+- Fix problem with matplotlib and ipympl. In the previous version using "%matplotlib widget" gave an
+  error when trying to display interactive plots.
+  
+  
