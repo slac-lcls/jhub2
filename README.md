@@ -1,3 +1,5 @@
+!!! The PCDS jupyter environment is not supported anymore as we moved to ondemand in the S3DF. !!!
+
 
 # Installation jupyterhub_test 2021-07
 
